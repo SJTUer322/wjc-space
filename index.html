@@ -7,18 +7,26 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="bg-glow glow-1"></div>
-  <div class="bg-glow glow-2"></div>
+  <div class="bg-glow glow-1" aria-hidden="true"></div>
+  <div class="bg-glow glow-2" aria-hidden="true"></div>
 
   <main class="container">
-    <section class="hero-card">
-      <p class="tag">PERSONAL SPACE</p>
-      <h1>王久畅的空间</h1>
-      <p class="subtitle">
-        一个简洁、前卫的个人主页。点击下方按钮可快速访问相关学校官网。
-      </p>
+    <section class="hero-card" aria-labelledby="heroTitle">
+      <div class="hero-layer hero-layer-1">
+        <p class="tag">PERSONAL SPACE</p>
+      </div>
 
-      <div class="button-group">
+      <div class="hero-layer hero-layer-2">
+        <h1 id="heroTitle">王久畅的空间</h1>
+      </div>
+
+      <div class="hero-layer hero-layer-3">
+        <p class="subtitle">
+          一个简洁、前卫的个人主页。点击下方按钮可快速访问相关学校官网。
+        </p>
+      </div>
+
+      <div class="button-group hero-layer hero-layer-4" aria-label="快速跳转入口">
         <a
           class="nav-btn"
           href="https://www.ppsuc.edu.cn/"
@@ -41,9 +49,9 @@
       </div>
     </section>
 
-    <section class="log-card">
+    <section class="log-card reveal-on-scroll" data-reveal aria-labelledby="logTitle">
       <div class="log-header">
-        <h2>本地访问日志</h2>
+        <h2 id="logTitle">本地访问日志</h2>
         <button class="clear-btn" onclick="clearLogs()">清空日志</button>
       </div>
       <p class="log-tip">
