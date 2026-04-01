@@ -35,6 +35,7 @@ body {
 }
 
 .hero-card,
+.about-card,
 .log-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -108,6 +109,22 @@ body {
 .log-card {
   margin-top: 28px;
   padding: 28px;
+}
+
+.about-card {
+  margin-top: 28px;
+  padding: 30px 32px;
+}
+
+.about-card h2 {
+  font-size: 1.35rem;
+  margin-bottom: 10px;
+}
+
+.about-card p {
+  color: var(--subtext);
+  font-size: 1rem;
+  line-height: 1.8;
 }
 
 .log-header {
@@ -204,6 +221,10 @@ main {
 
   .log-card {
     padding: 20px;
+  }
+
+  .about-card {
+    padding: 22px 20px;
   }
 
   .log-header {
