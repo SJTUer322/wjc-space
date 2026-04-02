@@ -22,6 +22,7 @@
   --duration-fast: 320ms;
   --duration-base: 460ms;
   --duration-slow: 620ms;
+  --duration-splash: 780ms;
   --stagger: 110ms;
 }
 
@@ -35,6 +36,83 @@ body {
     linear-gradient(150deg, var(--bg-color), var(--bg-alt-color));
   overflow-x: hidden;
   position: relative;
+}
+
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.72), transparent 38%),
+    linear-gradient(150deg, rgba(242, 243, 245, 0.98), rgba(233, 235, 239, 0.98));
+  opacity: 1;
+  transition:
+    opacity var(--duration-splash) var(--ease-standard),
+    visibility var(--duration-splash) var(--ease-standard);
+}
+
+.splash-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  transform: translate3d(0, 0, 0);
+}
+
+.banana-logo {
+  width: clamp(112px, 24vw, 154px);
+  height: auto;
+  filter: drop-shadow(0 12px 20px rgba(86, 69, 32, 0.14));
+  opacity: 0;
+  transform: translate3d(0, 8px, 0) scale(0.94);
+}
+
+.splash-tagline {
+  font-size: 0.72rem;
+  letter-spacing: 2.4px;
+  color: var(--muted-color);
+  opacity: 0;
+  transform: translate3d(0, 8px, 0);
+}
+
+body.splash-active {
+  overflow: hidden;
+}
+
+body.splash-active .banana-logo {
+  animation:
+    logo-enter 680ms var(--ease-standard) forwards,
+    logo-drift 2.1s ease-in-out 520ms infinite;
+}
+
+body.splash-active .splash-tagline {
+  animation: logo-enter 600ms var(--ease-standard) 160ms forwards;
+}
+
+body.splash-exit .splash-screen {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+body.splash-exit .splash-content {
+  transform: scale(0.985);
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+
+#mainContent {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  transition:
+    opacity var(--duration-base) var(--ease-standard),
+    transform var(--duration-base) var(--ease-standard);
+}
+
+body.content-ready #mainContent {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
 }
 
 .container {
@@ -274,9 +352,41 @@ body.motion-ready .hero-layer-4 {
   }
 }
 
+@keyframes logo-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes logo-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-1.8deg);
+  }
+
+  50% {
+    transform: translate3d(0, -4px, 0) rotate(1.4deg);
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     padding-top: 48px;
+  }
+
+  .splash-content {
+    gap: 14px;
+  }
+
+  .splash-tagline {
+    letter-spacing: 2px;
+    font-size: 0.68rem;
   }
 
   .hero-card {
@@ -293,6 +403,18 @@ body.motion-ready .hero-layer-4 {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .splash-screen,
+  #mainContent {
+    transition: opacity 220ms linear;
+  }
+
+  body.splash-active .banana-logo,
+  body.splash-active .splash-tagline {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
   .hero-layer,
   .reveal-on-scroll,
   .reveal-on-scroll.revealed {

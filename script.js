@@ -1,4 +1,5 @@
 const STORAGE_KEY = "wjc_space_logs";
+const SPLASH_SEEN_KEY = "wjc_space_splash_seen";
 
 function getNow() {
   return new Date().toLocaleString("zh-CN", {
@@ -71,6 +72,43 @@ function initHeroMotion() {
   });
 }
 
+function initSplashScreen() {
+  const splashScreen = document.getElementById("splashScreen");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!splashScreen) {
+    document.body.classList.add("content-ready");
+    return Promise.resolve();
+  }
+
+  const hasSeenSplash = localStorage.getItem(SPLASH_SEEN_KEY) === "1";
+
+  if (hasSeenSplash) {
+    splashScreen.remove();
+    document.body.classList.add("content-ready");
+    return Promise.resolve();
+  }
+
+  localStorage.setItem(SPLASH_SEEN_KEY, "1");
+  document.body.classList.add("splash-active");
+
+  const splashDuration = prefersReducedMotion ? 620 : 1680;
+  const exitDuration = prefersReducedMotion ? 240 : 760;
+
+  return new Promise((resolve) => {
+    window.setTimeout(() => {
+      document.body.classList.add("splash-exit");
+
+      window.setTimeout(() => {
+        splashScreen.remove();
+        document.body.classList.remove("splash-active");
+        document.body.classList.add("content-ready");
+        resolve();
+      }, exitDuration);
+    }, splashDuration);
+  });
+}
+
 function initScrollReveal() {
   const revealTargets = document.querySelectorAll("[data-reveal]");
 
@@ -107,6 +145,8 @@ function initScrollReveal() {
 
 document.addEventListener("DOMContentLoaded", () => {
   recordVisit();
-  initHeroMotion();
+  initSplashScreen().then(() => {
+    initHeroMotion();
+  });
   initScrollReveal();
 });

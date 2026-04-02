@@ -7,10 +7,57 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="splash-screen" id="splashScreen" aria-hidden="true">
+    <div class="splash-content">
+      <svg
+        class="banana-logo"
+        viewBox="0 0 220 220"
+        role="img"
+        aria-label="Banana opening logo"
+      >
+        <defs>
+          <linearGradient id="bananaFill" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f8d85f" />
+            <stop offset="65%" stop-color="#f1c947" />
+            <stop offset="100%" stop-color="#e8bb38" />
+          </linearGradient>
+          <linearGradient id="bananaStem" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#7d6951" />
+            <stop offset="100%" stop-color="#564534" />
+          </linearGradient>
+        </defs>
+        <path
+          class="banana-shadow"
+          d="M49 151c20 22 62 34 102 20 19-7 34-20 43-37-16 10-32 16-48 20-43 12-77 6-97-3z"
+          fill="rgba(124, 98, 43, 0.16)"
+        />
+        <path
+          class="banana-shape"
+          d="M43 67c9 49 33 78 66 89 36 12 73-1 96-33 4-5 3-13-3-16-4-3-10-2-14 2-18 25-46 35-71 27-25-8-45-33-53-72-2-6-7-10-13-9-6 1-10 6-8 12z"
+          fill="url(#bananaFill)"
+        />
+        <path
+          class="banana-highlight"
+          d="M66 77c8 30 24 53 45 63 19 8 41 6 61-6"
+          fill="none"
+          stroke="rgba(255, 248, 213, 0.72)"
+          stroke-width="7"
+          stroke-linecap="round"
+        />
+        <path
+          class="banana-stem"
+          d="M36 59c7-5 14-7 22-4 4 1 6 6 4 10-3 8-11 12-20 12-4 0-8-3-9-7-1-4 0-8 3-11z"
+          fill="url(#bananaStem)"
+        />
+      </svg>
+      <p class="splash-tagline">LOADING THE SPACE</p>
+    </div>
+  </div>
+
   <div class="bg-glow glow-1" aria-hidden="true"></div>
   <div class="bg-glow glow-2" aria-hidden="true"></div>
 
-  <main class="container">
+  <main class="container" id="mainContent">
     <section class="hero-card" aria-labelledby="heroTitle">
       <div class="hero-layer hero-layer-1">
         <p class="tag">PERSONAL SPACE</p>
